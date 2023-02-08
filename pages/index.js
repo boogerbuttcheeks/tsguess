@@ -161,62 +161,66 @@ export default function Home() {
       <main className={styles.main}>
         <h1 onClick={() => { router.reload() }}>tsguess</h1>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <p>Score: {score}</p>
-          <p>High Score: {highScore}</p>
-        </div>
-        <Guesses guessesRemaining={guessesRemaining} />
+        <hr />
 
-        <div className={styles.button}>
-          {!gameStarted && <button className={styles.startButton} onClick={() => {
-            setGameStarted(true)
-            getRandomSong()
-          }}>Start</button>}
+        <div className={styles.wrapper}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <p>Score: {score}</p>
+            <p>High Score: {highScore}</p>
+          </div>
+          <Guesses guessesRemaining={guessesRemaining} />
 
-          {isCorrect && <button onClick={() => {
-            setGuessesRemaining(3)
-            setIsCorrect(false)
-            getRandomSong()
-            setPreviousGuess('')
-          }}>Next Question</button>}
-
-          {isGameOver && <button onClick={() => {
-            setScore(0)
-            setGameStarted(true)
-            setGuessesRemaining(3)
-            getRandomSong()
-            setPreviousGuess('')
-          }
-          }>Play Again</button>}
-        </div>
-
-        {gameStarted && !isCorrect && !isGameOver &&
-          <UserInput
-            guess={guess}
-            setGuess={setGuess}
+          <Feedback
+            isCorrect={isCorrect}
+            isGameOver={isGameOver}
             previousGuess={previousGuess}
-            setPreviousGuess={setPreviousGuess}
-            submitGuess={submitGuess}
-            setIsGuessBlank={setIsGuessBlank}
+            guessesRemaining={guessesRemaining}
             isGuessBlank={isGuessBlank}
+            album={album}
+            song={song}
           />
-        }
 
-        <Feedback
-          isCorrect={isCorrect}
-          isGameOver={isGameOver}
-          previousGuess={previousGuess}
-          guessesRemaining={guessesRemaining}
-          isGuessBlank={isGuessBlank}
-          album={album}
-          song={song}
-        />
+          <div className={styles.button}>
+            {!gameStarted && <button className={styles.startButton} style={{ marginTop: "-4rem", position: "absolute" }} onClick={() => {
+              setGameStarted(true)
+              getRandomSong()
+            }}>Start</button>}
 
-        <Lyrics
-          lyrics={lyrics}
-          guessesRemaining={guessesRemaining}
-          gameStarted={gameStarted}
-        />
+            {isCorrect && <button onClick={() => {
+              setGuessesRemaining(3)
+              setIsCorrect(false)
+              getRandomSong()
+              setPreviousGuess('')
+            }}>Next Question</button>}
+
+            {isGameOver && <button onClick={() => {
+              setScore(0)
+              setGameStarted(true)
+              setGuessesRemaining(3)
+              getRandomSong()
+              setPreviousGuess('')
+            }
+            }>Play Again</button>}
+          </div>
+
+          {gameStarted && !isCorrect && !isGameOver &&
+            <UserInput
+              guess={guess}
+              setGuess={setGuess}
+              previousGuess={previousGuess}
+              setPreviousGuess={setPreviousGuess}
+              submitGuess={submitGuess}
+              setIsGuessBlank={setIsGuessBlank}
+              isGuessBlank={isGuessBlank}
+            />
+          }
+
+          <Lyrics
+            lyrics={lyrics}
+            guessesRemaining={guessesRemaining}
+            gameStarted={gameStarted}
+          />
+        </div>
       </main>
     </>
   )

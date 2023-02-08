@@ -1,6 +1,6 @@
 .wrapper {
   font-size: 1.5rem;
-  margin-top: 1rem;
+  margin-top: 4rem;
 }
 
 .wrapper p {
@@ -10,6 +10,7 @@
 
 .number {
   font-size: 1rem;
+  opacity: 0.8;
 }
 
 .fadeIn {

@@ -2,7 +2,7 @@ import styles from './UserInput.module.css'
 
 export default function UserInput({ guess, setGuess, submitGuess, setPreviousGuess, setIsGuessBlank, isGuessBlank }) {
   return (
-    <>
+    <div className={styles.wrapper}>
       <input
         className={styles.input}
         type="text"
@@ -34,6 +34,6 @@ export default function UserInput({ guess, setGuess, submitGuess, setPreviousGue
         setPreviousGuess(guess)
         submitGuess()
       }}>Submit</button>
-    </>
+    </div>
   )
 }

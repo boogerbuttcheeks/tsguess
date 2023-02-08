@@ -2,6 +2,13 @@
   padding: 1rem;
   max-width: 640px;
   margin: 0 auto;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.wrapper {
+  margin-top: 0.75rem;
+  height: 100%;
 }
 
 .button {
