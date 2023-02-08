@@ -32,6 +32,7 @@ export default function About() {
         <p><strong>Instructions: </strong></p>
         <p>Guess the Taylor Swift song from the lyrics. You have 3 guesses per song. Good luck!</p>
         <br />
+        <Link href="https://github.com/boogerbuttcheeks/tsguess/issues">Report an issue</Link>
         <p>Made by <Link href="https://www.trevortylerlee.com/">Trevor Lee</Link></p>
       </main>
     </>
