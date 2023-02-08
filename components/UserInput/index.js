@@ -1,4 +1,4 @@
-export default function UserInput({ guess, setGuess, submitGuess, setPreviousGuess }) {
+export default function UserInput({ guess, setGuess, submitGuess, setPreviousGuess, setIsGuessBlank, isGuessBlank }) {
   return (
     <>
       <input
@@ -9,6 +9,12 @@ export default function UserInput({ guess, setGuess, submitGuess, setPreviousGue
         }}
       />
       <button onClick={() => {
+        if (guess === '') {
+          setIsGuessBlank(true)
+          return
+        }
+
+        setIsGuessBlank(false)
         setPreviousGuess(guess)
         submitGuess()
       }}>Submit</button>

@@ -67,6 +67,7 @@ export default function Home() {
   const [guessesRemaining, setGuessesRemaining] = useState(3)
   const [guess, setGuess] = useState('')
   const [previousGuess, setPreviousGuess] = useState('')
+  const [isGuessBlank, setIsGuessBlank] = useState(false)
 
   const isGameOver = guessesRemaining === 0
 
@@ -103,6 +104,10 @@ export default function Home() {
   })
 
   function submitGuess() {
+    if (guess === '') {
+      return
+    }
+
     if (compareGuessToAnswer(guess, song)) {
       setScore(score => score + 1)
       setIsCorrect(true)
@@ -190,6 +195,8 @@ export default function Home() {
             previousGuess={previousGuess}
             setPreviousGuess={setPreviousGuess}
             submitGuess={submitGuess}
+            setIsGuessBlank={setIsGuessBlank}
+            isGuessBlank={isGuessBlank}
           />
         }
 
@@ -198,6 +205,9 @@ export default function Home() {
           isGameOver={isGameOver}
           previousGuess={previousGuess}
           guessesRemaining={guessesRemaining}
+          isGuessBlank={isGuessBlank}
+          album={album}
+          song={song}
         />
 
         <Lyrics
