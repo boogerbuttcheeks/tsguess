@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import { useEffect, useState } from "react"
 
+import Guesses from "@/components/Guesses"
 import Lyrics from "@/components/Lyrics"
 import UserInput from "@/components/UserInput"
 
@@ -152,8 +153,12 @@ export default function Home() {
       <main className={styles.main}>
         <h1>tsguess</h1>
 
-        <p>High Score: {highScore}</p>
-        <p>Score: {score}</p>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <p>Score: {score}</p>
+          <p>High Score: {highScore}</p>
+        </div>
+        <Guesses guessesRemaining={guessesRemaining} />
+
 
         {!gameStarted && <button onClick={() => {
           setGameStarted(true)
@@ -179,12 +184,12 @@ export default function Home() {
             guess={guess}
             setGuess={setGuess}
             submitGuess={submitGuess}
-            isCorrect={isCorrect} />
+          />
         }
 
         <Lyrics
-          guessesRemaining={guessesRemaining}
           lyrics={lyrics}
+          guessesRemaining={guessesRemaining}
         />
       </main>
     </>
