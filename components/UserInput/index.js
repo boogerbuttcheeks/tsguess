@@ -1,4 +1,4 @@
-export default function UserInput({ guess, setGuess, submitGuess }) {
+export default function UserInput({ guess, setGuess, submitGuess, isCorrect }) {
   return (
     <>
       <input

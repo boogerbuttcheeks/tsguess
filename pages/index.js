@@ -1,13 +1,10 @@
 import Head from 'next/head'
 import Image from 'next/image'
-// import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import { useEffect, useState } from "react"
 
 import Lyrics from "@/components/Lyrics"
 import UserInput from "@/components/UserInput"
-
-// const inter = Inter({ subsets: ['latin'] })
 
 const albums = [
   {
@@ -24,7 +21,7 @@ const albums = [
   },
   {
     name: "Red (Taylor's Version)",
-    songs: ["22", "All Too Well (10 Minute Version)", "All Too Well", "Babe", "Begin Again", "Better Man", "Come Back...Be Here", "Everything Has Changed", "Forever Winter", "Girl At Home", "Holy Ground", "I Almost Do", "I Bet You Think About Me", "I Knew You Were Trouble", "Message In A Bottle", "Nothing New", "Red", "Ronan", "Run", "Sad Beautiful Tragic", "Starlight", "State of Grace", "Stay Stay Stay", "The Last Time", "The Lucky One", "The Moment I Knew", "The Very First Night", "Treacherous", "We Are Never Ever Getting Back Together"]
+    songs: ["22", "All Too Well (10 Minute Version)", "All Too Well", "Babe", "Begin Again", "Better Man", "Come Back...Be Here", "Everything Has Changed", "Forever Winter", "Girl At Home", "Holy Gscore", "I Almost Do", "I Bet You Think About Me", "I Knew You Were Trouble", "Message In A Bottle", "Nothing New", "Red", "Ronan", "Run", "Sad Beautiful Tragic", "Starlight", "State of Grace", "Stay Stay Stay", "The Last Time", "The Lucky One", "The Moment I Knew", "The Very First Night", "Treacherous", "We Are Never Ever Getting Back Together"]
   },
   {
     name: "1989 (Deluxe)",
@@ -63,7 +60,8 @@ export default function Home() {
   const [song, setSong] = useState('')
   const [lyrics, setLyrics] = useState({})
 
-  const [round, setRound] = useState(0)
+  const [score, setScore] = useState(0)
+  const [highScore, setHighScore] = useState(0)
   const [guessesRemaining, setGuessesRemaining] = useState(3)
   const [guess, setGuess] = useState('')
 
@@ -87,12 +85,30 @@ export default function Home() {
       });
   }, [album]);
 
+  useEffect(() => {
+    let localHighScore = localStorage.getItem('highScore')
+
+    if (localHighScore) {
+      console.log(localHighScore)
+      setHighScore(localHighScore)
+    }
+
+    if (score > localHighScore) {
+      setHighScore(score)
+      console.log('set new high score')
+      localStorage.setItem('highScore', highScore)
+    }
+  })
+
   function submitGuess() {
     if (compareGuessToAnswer(guess, song)) {
+      setScore(score => score + 1)
       setIsCorrect(true)
+      setGuess('')
     } else {
       setIsCorrect(false)
       setGuessesRemaining(guessesRemaining - 1)
+      setGuess('')
     }
   }
 
@@ -136,26 +152,35 @@ export default function Home() {
       <main className={styles.main}>
         <h1>tsguess</h1>
 
+        <p>High Score: {highScore}</p>
+        <p>Score: {score}</p>
+
         {!gameStarted && <button onClick={() => {
           setGameStarted(true)
           getRandomSong()
         }}>Start</button>}
 
         {isCorrect && <button onClick={() => {
-          setRound(round + 1)
           setGuessesRemaining(3)
           setIsCorrect(false)
           getRandomSong()
         }}>Next Question</button>}
 
         {isGameOver && <button onClick={() => {
+          setScore(0)
           setGameStarted(true)
           setGuessesRemaining(3)
           getRandomSong()
         }
         }>Play Again</button>}
 
-        {gameStarted && <UserInput guess={guess} setGuess={setGuess} submitGuess={submitGuess} />}
+        {gameStarted && !isCorrect && !isGameOver &&
+          <UserInput
+            guess={guess}
+            setGuess={setGuess}
+            submitGuess={submitGuess}
+            isCorrect={isCorrect} />
+        }
 
         <Lyrics
           guessesRemaining={guessesRemaining}
