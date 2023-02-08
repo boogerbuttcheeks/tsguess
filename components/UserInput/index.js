@@ -1,4 +1,4 @@
-export default function UserInput({ guess, setGuess, submitGuess }) {
+export default function UserInput({ guess, setGuess, submitGuess, setPreviousGuess }) {
   return (
     <>
       <input
@@ -9,7 +9,7 @@ export default function UserInput({ guess, setGuess, submitGuess }) {
         }}
       />
       <button onClick={() => {
-        console.log({ guess })
+        setPreviousGuess(guess)
         submitGuess()
       }}>Submit</button>
     </>

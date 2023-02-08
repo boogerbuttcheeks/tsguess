@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import Guesses from "@/components/Guesses"
 import Lyrics from "@/components/Lyrics"
 import UserInput from "@/components/UserInput"
+import Feedback from "@/components/Feedback"
 
 const albums = [
   {
@@ -65,6 +66,7 @@ export default function Home() {
   const [highScore, setHighScore] = useState(0)
   const [guessesRemaining, setGuessesRemaining] = useState(3)
   const [guess, setGuess] = useState('')
+  const [previousGuess, setPreviousGuess] = useState('')
 
   const isGameOver = guessesRemaining === 0
 
@@ -90,13 +92,12 @@ export default function Home() {
     let localHighScore = localStorage.getItem('highScore')
 
     if (localHighScore) {
-      console.log(localHighScore)
       setHighScore(localHighScore)
     }
 
     if (score > localHighScore) {
       setHighScore(score)
-      console.log('set new high score')
+      console.log('Set new high score!')
       localStorage.setItem('highScore', highScore)
     }
   })
@@ -159,37 +160,50 @@ export default function Home() {
         </div>
         <Guesses guessesRemaining={guessesRemaining} />
 
+        <div className={styles.button}>
+          {!gameStarted && <button className={styles.startButton} onClick={() => {
+            setGameStarted(true)
+            getRandomSong()
+          }}>Start</button>}
 
-        {!gameStarted && <button onClick={() => {
-          setGameStarted(true)
-          getRandomSong()
-        }}>Start</button>}
+          {isCorrect && <button onClick={() => {
+            setGuessesRemaining(3)
+            setIsCorrect(false)
+            getRandomSong()
+            setPreviousGuess('')
+          }}>Next Question</button>}
 
-        {isCorrect && <button onClick={() => {
-          setGuessesRemaining(3)
-          setIsCorrect(false)
-          getRandomSong()
-        }}>Next Question</button>}
-
-        {isGameOver && <button onClick={() => {
-          setScore(0)
-          setGameStarted(true)
-          setGuessesRemaining(3)
-          getRandomSong()
-        }
-        }>Play Again</button>}
+          {isGameOver && <button onClick={() => {
+            setScore(0)
+            setGameStarted(true)
+            setGuessesRemaining(3)
+            getRandomSong()
+            setPreviousGuess('')
+          }
+          }>Play Again</button>}
+        </div>
 
         {gameStarted && !isCorrect && !isGameOver &&
           <UserInput
             guess={guess}
             setGuess={setGuess}
+            previousGuess={previousGuess}
+            setPreviousGuess={setPreviousGuess}
             submitGuess={submitGuess}
           />
         }
 
+        <Feedback
+          isCorrect={isCorrect}
+          isGameOver={isGameOver}
+          previousGuess={previousGuess}
+          guessesRemaining={guessesRemaining}
+        />
+
         <Lyrics
           lyrics={lyrics}
           guessesRemaining={guessesRemaining}
+          gameStarted={gameStarted}
         />
       </main>
     </>

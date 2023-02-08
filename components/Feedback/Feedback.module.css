@@ -1,0 +1,25 @@
+.wrapper {
+  margin-top: 1rem;
+  min-height: 24px;
+  padding: 0.5rem;
+  border-radius: 2px;
+  transition: 0.5s;
+}
+
+.incorrect {
+  background-color: #3d2912;
+  color: #fef08a;
+  outline: 2px solid #fef08a;
+}
+
+.correct {
+  background-color: #1a3d29;
+  color: #aaf0e1;
+  outline: 2px solid #aaf0e1;
+}
+
+.gameOver {
+  background-color: #331615;
+  color: #fecbca;
+  outline: 2px solid #fecbca;
+}
