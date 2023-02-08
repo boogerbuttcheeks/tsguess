@@ -4,6 +4,9 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import { useEffect, useState } from "react"
 
+import Lyrics from "@/components/Lyrics"
+import UserInput from "@/components/UserInput"
+
 // const inter = Inter({ subsets: ['latin'] })
 
 const albums = [
@@ -61,11 +64,10 @@ export default function Home() {
   const [lyrics, setLyrics] = useState({})
 
   const [round, setRound] = useState(0)
-  const [turn, setTurn] = useState(0)
+  const [guessesRemaining, setGuessesRemaining] = useState(3)
+  const [guess, setGuess] = useState('')
 
-
-
-  const isGameOver = turn > 2
+  const isGameOver = guessesRemaining === 0
 
   useEffect(() => {
     fetch('/ts.json')
@@ -84,6 +86,21 @@ export default function Home() {
         }
       });
   }, [album]);
+
+  function submitGuess() {
+    if (compareGuessToAnswer(guess, song)) {
+      setIsCorrect(true)
+    } else {
+      setIsCorrect(false)
+      setGuessesRemaining(guessesRemaining - 1)
+    }
+  }
+
+  function compareGuessToAnswer(guess, answer) {
+    guess = guess.toLowerCase().replace(/[^\w\s]/gi, '').trim()
+    answer = answer.toLowerCase().replace(/[^\w\s]/gi, '').trim()
+    return guess === answer
+  }
 
   function getRandomSong() {
     const album = albums[getNumberFromZeroToNine()]
@@ -118,14 +135,32 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <h1>tsguess</h1>
+
         {!gameStarted && <button onClick={() => {
           setGameStarted(true)
           getRandomSong()
         }}>Start</button>}
-        {gameStarted && <button onClick={getRandomSong}>Next</button>}
-        {lyrics && <p>{lyrics.prev}</p>}
-        {lyrics && <p>{lyrics.lyric}</p>}
-        {lyrics && <p>{lyrics.next}</p>}
+
+        {isCorrect && <button onClick={() => {
+          setRound(round + 1)
+          setGuessesRemaining(3)
+          setIsCorrect(false)
+          getRandomSong()
+        }}>Next Question</button>}
+
+        {isGameOver && <button onClick={() => {
+          setGameStarted(true)
+          setGuessesRemaining(3)
+          getRandomSong()
+        }
+        }>Play Again</button>}
+
+        {gameStarted && <UserInput guess={guess} setGuess={setGuess} submitGuess={submitGuess} />}
+
+        <Lyrics
+          guessesRemaining={guessesRemaining}
+          lyrics={lyrics}
+        />
       </main>
     </>
   )
