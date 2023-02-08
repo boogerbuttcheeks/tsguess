@@ -784,12 +784,6 @@
     ],
     "ME!": [
       {
-        "lyric": "I promise that you'll never find another like me",
-        "prev": "",
-        "next": "",
-        "multiplicity": 1
-      },
-      {
         "lyric": "I know that I'm a handful, baby, uh",
         "prev": "",
         "next": "I know I never think before I jump",
@@ -799,6 +793,12 @@
         "lyric": "I know I never think before I jump",
         "prev": "I know that I'm a handful, baby, uh",
         "next": "And you're the kinda guy the ladies want",
+        "multiplicity": 1
+      },
+      {
+        "lyric": "And you're the kinda guy the ladies want",
+        "prev": "I know I never think before I jump",
+        "next": "(And there's a lotta cool chicks out there)",
         "multiplicity": 1
       }
     ],
@@ -2743,7 +2743,7 @@
       },
       {
         "lyric": "It was the best of times, the worst of crimes",
-        "prev": "",
+        "prev": "No, nothing good starts in a getaway car",
         "next": "I struck a match and blew your mind",
         "multiplicity": 1
       },
