@@ -4,7 +4,7 @@ export default function Feedback({ isCorrect, isGameOver, previousGuess, guesses
   if (isGuessBlank) {
     return (
       <div className={`${styles.wrapper} ${styles.incorrect}`}>
-        <p>Guess cannot be blank</p>
+        <p>Guess cannot be blank.</p>
       </div>
     )
   } else if (isCorrect) {
@@ -22,14 +22,14 @@ export default function Feedback({ isCorrect, isGameOver, previousGuess, guesses
     return (
       <div className={`${styles.wrapper} ${styles.gameOver}`}>
         {/* <p>Game Over</p> */}
-        <p>{`The answer is "${album} - ${song}"`}</p>
+        <p>{`The answer is "${song}" from ${album}.`}</p>
       </div>
     )
   }
   else {
     return (
       <div className={`${styles.wrapper} ${styles.incorrect}`}>
-        <p>{`"${previousGuess}" is not correct`}</p>
+        <p>{`"${previousGuess}" is not correct.`}</p>
       </div >
     )
   }

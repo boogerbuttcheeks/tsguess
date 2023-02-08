@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import { useEffect, useState } from "react"
+import { useRouter } from 'next/router'
 
 import Guesses from "@/components/Guesses"
 import Lyrics from "@/components/Lyrics"
@@ -52,6 +53,7 @@ const albums = [
 ]
 
 export default function Home() {
+  const router = useRouter()
 
   // All possible game states
   const [gameStarted, setGameStarted] = useState(false)
@@ -157,7 +159,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <h1>tsguess</h1>
+        <h1 onClick={() => { router.reload() }}>tsguess</h1>
 
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <p>Score: {score}</p>
