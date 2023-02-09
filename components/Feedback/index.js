@@ -3,7 +3,7 @@ import styles from './Feedback.module.css'
 export default function Feedback({ isCorrect, isGameOver, previousGuess, guessesRemaining, isGuessBlank, album, song }) {
   if (isGuessBlank) {
     return (
-      <div className={`${styles.wrapper} ${styles.incorrect}`}>
+      <div id="blankFeedback" className={`${styles.wrapper} ${styles.incorrect}`}>
         <p>Guess cannot be blank.</p>
       </div>
     )
