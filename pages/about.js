@@ -3,8 +3,18 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import styles from "../styles/About.module.css"
 
+import NewPostForm from "@/components/NewCommentForm"
+
 export default function About() {
   const router = useRouter()
+
+  const handleSubmit = async ({ name, code }) => {
+    const { data } = await axios.post('/api/comments', {
+      name,
+      comment,
+    })
+    console.log(data)
+  }
 
   return (
     <>
@@ -42,6 +52,10 @@ export default function About() {
         <br />
         <Link href="https://github.com/boogerbuttcheeks/tsguess/issues">Report an issue</Link>
         <p>Made by <Link href="https://www.trevortylerlee.com/">Trevor Lee</Link></p>
+
+        <hr />
+
+        <NewPostForm onSubmit={handleSubmit} />
       </main>
     </>
   )
