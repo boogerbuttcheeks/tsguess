@@ -2,8 +2,6 @@
   padding: 1rem;
   max-width: 640px;
   margin: 0 auto;
-  height: 100vh;
-  overflow-y: hidden;
 }
 
 .nav {
@@ -11,4 +9,9 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+}
+
+.form {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }

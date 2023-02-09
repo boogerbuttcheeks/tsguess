@@ -2,9 +2,44 @@ import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import styles from "../styles/About.module.css"
+import { useState } from "react"
+import axios from "axios"
 
-export default function About() {
+import NewPostForm from "@/components/NewCommentForm"
+import Comment from "@/components/Comment"
+
+import { PrismaClient } from "@prisma/client"
+
+const prisma = new PrismaClient()
+
+export async function getServerSideProps() {
+  const comments = await prisma.comment.findMany()
+  const serializableComments = comments.map(comment => {
+    return {
+      ...comment,
+      createdAt: comment.createdAt.toISOString(),
+    }
+  })
+
+  return {
+    props: {
+      initialComments: serializableComments,
+    }
+  }
+}
+
+export default function About({ initialComments }) {
   const router = useRouter()
+
+  const [comments, setComments] = useState(initialComments)
+
+  const handleSubmit = async ({ name, comment }) => {
+    const { data } = await axios.post('/api/comments', {
+      name,
+      comment,
+    })
+    console.log(data)
+  }
 
   return (
     <>
@@ -40,8 +75,22 @@ export default function About() {
         <p><strong>Instructions: </strong></p>
         <p>Guess the Taylor Swift song from the lyrics. You have 3 guesses per song. Good luck!</p>
         <br />
-        <Link href="https://github.com/boogerbuttcheeks/tsguess/issues">Report an issue</Link>
+        <Link href="https://github.com/boogerbuttcheeks/tsguess">Github</Link>
         <p>Made by <Link href="https://www.trevortylerlee.com/">Trevor Lee</Link></p>
+
+        <hr />
+
+        <div className={styles.form}>
+          <h2>Leave a comment</h2>
+          <NewPostForm onSubmit={handleSubmit} />
+        </div>
+
+        <h2 style={{ marginBottom: "0.5rem" }}>Comments</h2>
+        {comments.map((c, i) => (
+          <div key={i}>
+            <Comment {...c} />
+          </div>
+        ))}
       </main>
     </>
   )
