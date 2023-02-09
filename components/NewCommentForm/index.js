@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function NewPostForm({ onSubmit, onChange }) {
+export default function NewPostForm({ onSubmit }) {
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
 
@@ -11,12 +11,10 @@ export default function NewPostForm({ onSubmit, onChange }) {
 
   const handleNameChange = (e) => {
     setName(e.target.value);
-    onChange(e.target.value);
   }
 
   const handleCommentChange = (e) => {
     setComment(e.target.value);
-    onChange(e.target.value);
   }
 
   return (

@@ -2,11 +2,34 @@ import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import styles from "../styles/About.module.css"
+import { useState } from "react"
 
 import NewPostForm from "@/components/NewCommentForm"
 
-export default function About() {
+import { PrismaClient } from "@prisma/client"
+
+const prisma = new PrismaClient()
+
+export async function getServerSideProps() {
+  const comments = await prisma.comment.findMany()
+  const serializableComments = comments.map(comment => {
+    return {
+      ...comment,
+      createdAt: comment.createdAt.toISOString(),
+    }
+  })
+
+  return {
+    props: {
+      initialComments: serializableComments,
+    }
+  }
+}
+
+export default function About({ initialComments }) {
   const router = useRouter()
+
+  const [comments, setComments] = useState(initialComments)
 
   const handleSubmit = async ({ name, code }) => {
     const { data } = await axios.post('/api/comments', {
@@ -56,6 +79,14 @@ export default function About() {
         <hr />
 
         <NewPostForm onSubmit={handleSubmit} />
+
+        {comments.map((c, i) => (
+          <div key={i}>
+            <p>{c.name}</p>
+            <p>{c.comment}</p>
+            <p>{c.createdAt}</p>
+          </div>
+        ))}
       </main>
     </>
   )
