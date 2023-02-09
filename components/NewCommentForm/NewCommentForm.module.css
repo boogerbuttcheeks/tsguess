@@ -1,0 +1,16 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.nameWrapper {
+  margin-bottom: 1rem;
+}
+
+.name {
+  width: 100%;
+}
+
+.comment {
+  width: 100%;
+}

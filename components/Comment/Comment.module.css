@@ -1,0 +1,29 @@
+.wrapper {
+  background: white;
+  color: black;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.time {
+  font-size: 0.75rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .wrapper {
+    background: rgb(85, 85, 85);
+    color: #eee;
+    box-shadow: rgba(0, 0, 0, 0.2) 1.95px 1.95px 2.6px;
+  }
+}

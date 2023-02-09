@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./NewCommentForm.module.css";
 
 export default function NewPostForm({ onSubmit }) {
   const [name, setName] = useState("");
@@ -19,11 +20,24 @@ export default function NewPostForm({ onSubmit }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit} method="POST">
-        <label htmlFor="name">Name</label>
-        <input type="text" name="name" id="name" value={name} onChange={handleNameChange} />
-        <label htmlFor="comment">Comment</label>
-        <input type="text" name="comment" id="comment" value={comment} onChange={handleCommentChange} />
+      <form className={styles.form} onSubmit={handleSubmit} method="POST">
+        <span className={styles.nameWrapper}>
+          <label htmlFor="name">Name</label>
+          <input
+            className={styles.name}
+            type="text"
+            name="name"
+            id="name"
+            value={name}
+            onChange={handleNameChange}
+          />
+        </span>
+
+        <span>
+          <label htmlFor="comment">Comment</label>
+          <textarea className={styles.comment} type="text" name="comment" id="comment" value={comment} onChange={handleCommentChange} />
+        </span>
+
         <button type="submit">Submit</button>
       </form>
     </>

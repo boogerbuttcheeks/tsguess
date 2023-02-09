@@ -6,6 +6,7 @@ import { useState } from "react"
 import axios from "axios"
 
 import NewPostForm from "@/components/NewCommentForm"
+import Comment from "@/components/Comment"
 
 import { PrismaClient } from "@prisma/client"
 
@@ -74,18 +75,20 @@ export default function About({ initialComments }) {
         <p><strong>Instructions: </strong></p>
         <p>Guess the Taylor Swift song from the lyrics. You have 3 guesses per song. Good luck!</p>
         <br />
-        <Link href="https://github.com/boogerbuttcheeks/tsguess/issues">Report an issue</Link>
+        <Link href="https://github.com/boogerbuttcheeks/tsguess">Github</Link>
         <p>Made by <Link href="https://www.trevortylerlee.com/">Trevor Lee</Link></p>
 
         <hr />
 
-        <NewPostForm onSubmit={handleSubmit} />
+        <div className={styles.form}>
+          <h2>Leave a comment</h2>
+          <NewPostForm onSubmit={handleSubmit} />
+        </div>
 
+        <h2 style={{ marginBottom: "0.5rem" }}>Comments</h2>
         {comments.map((c, i) => (
           <div key={i}>
-            <p>{c.name}</p>
-            <p>{c.comment}</p>
-            <p>{c.createdAt}</p>
+            <Comment {...c} />
           </div>
         ))}
       </main>
