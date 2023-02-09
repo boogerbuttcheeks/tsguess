@@ -1,3 +1,4 @@
+import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import styles from "../styles/About.module.css"
@@ -7,6 +8,13 @@ export default function About() {
 
   return (
     <>
+      <Head>
+        <title>about | tsguess</title>
+        <meta name="description" content="Guess Taylor Swift songs by their lyrics!" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
       <main className={styles.main}>
         <nav className={styles.nav}>
           <h1 onClick={() => { router.push('/') }}>tsguess</h1>
