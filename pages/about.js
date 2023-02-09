@@ -3,6 +3,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import styles from "../styles/About.module.css"
 import { useState } from "react"
+import axios from "axios"
 
 import NewPostForm from "@/components/NewCommentForm"
 
@@ -31,7 +32,7 @@ export default function About({ initialComments }) {
 
   const [comments, setComments] = useState(initialComments)
 
-  const handleSubmit = async ({ name, code }) => {
+  const handleSubmit = async ({ name, comment }) => {
     const { data } = await axios.post('/api/comments', {
       name,
       comment,
