@@ -47,7 +47,7 @@ export default function About({ initialComments }) {
         <title>about | tsguess</title>
         <meta name="description" content="Guess Taylor Swift songs by their lyrics!" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favi.png" />
       </Head>
 
       <main className={styles.main}>
