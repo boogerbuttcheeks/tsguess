@@ -604,12 +604,6 @@
     ],
     "Cruel Summer": [
       {
-        "lyric": "(Yeah, yeah, yeah, yeah)",
-        "prev": "",
-        "next": "",
-        "multiplicity": 1
-      },
-      {
         "lyric": "Fever dream high in the quiet of the night",
         "prev": "",
         "next": "You know that I caught it (Oh yeah, you're right, I want it)",
@@ -619,6 +613,12 @@
         "lyric": "You know that I caught it (Oh yeah, you're right, I want it)",
         "prev": "Fever dream high in the quiet of the night",
         "next": "Bad, bad boy, shiny toy with a price",
+        "multiplicity": 1
+      },
+      {
+        "lyric": "Bad, bad boy, shiny toy with a price",
+        "prev": "You know that I caught it (Oh yeah, you're right, I want it)",
+        "next": "You know that I bought it (Oh yeah, you're right, I want it)",
         "multiplicity": 1
       }
     ],
@@ -3178,21 +3178,21 @@
     ],
     "no body, no crime": [
       {
-        "lyric": "He did it",
-        "prev": "",
-        "next": "He did it",
-        "multiplicity": 1
-      },
-      {
-        "lyric": "He did it",
-        "prev": "He did it",
-        "next": "",
-        "multiplicity": 1
-      },
-      {
         "lyric": "Este's a friend of mine",
         "prev": "",
         "next": "We meet up every Tuesday night for dinner and a glass of wine",
+        "multiplicity": 1
+      },
+      {
+        "lyric": "We meet up every Tuesday night for dinner and a glass of wine",
+        "prev": "Este's a friend of mine",
+        "next": "Este's been losin' sleep",
+        "multiplicity": 1
+      },
+      {
+        "lyric": "Este's been losin' sleep",
+        "prev": "We meet up every Tuesday night for dinner and a glass of wine",
+        "next": "Her husband's actin' different, and it smells like infidelity",
         "multiplicity": 1
       }
     ],
